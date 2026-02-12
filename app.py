@@ -7,6 +7,42 @@ import matplotlib.pyplot as plt
 # -----------------------------------
 st.set_page_config(page_title="Customer Decile Dashboard", layout="wide")
 
+# -----------------------------------
+# HARDCODED LOGIN CREDENTIALS
+# -----------------------------------
+APP_USERNAME = "DATASEMANTICS"
+APP_PASSWORD = "BRIT@2016"
+
+# -----------------------------------
+# SIMPLE LOGIN SYSTEM
+# -----------------------------------
+def login():
+
+    st.title("🔐 Login")
+
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+
+        if username == APP_USERNAME and password == APP_PASSWORD:
+            st.session_state["logged_in"] = True
+        else:
+            st.error("Invalid Username or Password")
+
+if "logged_in" not in st.session_state:
+    st.session_state["logged_in"] = False
+
+if not st.session_state["logged_in"]:
+    login()
+    st.stop()
+
+# -----------------------------------
+# DASHBOARD STARTS AFTER LOGIN
+# -----------------------------------
+
+st.sidebar.success("Logged in successfully")
+
 st.title("📊 Customer Decile Analysis Dashboard")
 
 # -----------------------------------
@@ -14,7 +50,7 @@ st.title("📊 Customer Decile Analysis Dashboard")
 # -----------------------------------
 @st.cache_data
 def load_data():
-    return pd.read_csv(r"customer_data.csv")  # Replace with your file
+    return pd.read_csv("customer_data.csv")
 
 df = load_data()
 
@@ -119,5 +155,3 @@ if len(filtered_df) >= 10:
 
 else:
     st.warning("⚠ Not enough customers to create 10 equal deciles.")
-
-
