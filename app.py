@@ -14,7 +14,7 @@ st.title("📊 Customer Decile Analysis Dashboard")
 # -----------------------------------
 @st.cache_data
 def load_data():
-    return pd.read_csv(r"C:\Users\Sudha\Desktop\customer_data.csv")  # Replace with your file
+    return pd.read_csv(r"customer_data.csv")  # Replace with your file
 
 df = load_data()
 
@@ -119,4 +119,5 @@ if len(filtered_df) >= 10:
 
 else:
     st.warning("⚠ Not enough customers to create 10 equal deciles.")
+
 
